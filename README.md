@@ -104,6 +104,48 @@ Want to make this framework better?
 
 ---
 
+## 🛠 CI/CD & Quality
+
+This project includes a GitHub Actions workflow for continuous integration:
+- ✅ Build and test on push/pull requests to `main`
+- 🧪 Run `pytest` across all test modules
+- 🧼 Code linting with `flake8`
+- 📦 Supports Python 3.8 – 3.10
+
+### 🧰 GitHub Actions Workflow
+See `.github/workflows/python-ci.yml` for details.
+
+```yaml
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [3.8, 3.9, 3.10]
+    steps:
+    - uses: actions/checkout@v3
+    - uses: actions/setup-python@v4
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        pip install flake8
+    - name: Run tests
+      run: pytest tests/
+    - name: Lint code
+      run: flake8 a2a/ examples/ tests/
+```
+
+---
+
 ## 🔗 License
 MIT
 
