@@ -146,6 +146,13 @@ pytest tests/
 
 ---
 
+## 📘 Developer Documentation
+
+- [Architectural Decisions](DECISIONS.md)
+- [Integration Notes](INTEGRATION_NOTES.md)
+
+---
+
 ## 🤝 Contribute & Collaborate
 
 Want to make this framework better?
