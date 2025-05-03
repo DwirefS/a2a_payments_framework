@@ -1,6 +1,6 @@
 from langchain.tools import BaseTool
 from a2apay import Agent, Wallet
-from typing import Optional, Type
+from typing import Type
 from pydantic import BaseModel, Field, ConfigDict, PrivateAttr
 
 class A2APayInput(BaseModel):
@@ -21,9 +21,13 @@ class A2APayAgentTool(BaseTool):
         super().__init__()
         self._agent = Agent(agent_name, wallet=agent_wallet)
 
-    def _run(self, input_data: A2APayInput) -> str:
+    def _run(self, **kwargs) -> str:
         try:
-            parts = input_data.task.split(":")
+            task = kwargs["task"]
+            price = kwargs["price"]
+            payer_wallet = kwargs["payer_wallet"]
+
+            parts = task.split(":")
             if parts[0] == "translate":
                 structured_task = {
                     "action": "translate",
@@ -31,7 +35,7 @@ class A2APayAgentTool(BaseTool):
                     "lang": parts[2]
                 }
                 result = self._agent.handle_request(structured_task)
-                input_data.payer_wallet.send(self._agent.wallet, input_data.price, memo="LangChain tool payment")
+                payer_wallet.send(self._agent.wallet, price, memo="LangChain tool payment")
                 return result["result"]
             else:
                 return "Unsupported task."

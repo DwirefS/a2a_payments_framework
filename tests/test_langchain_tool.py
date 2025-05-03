@@ -6,9 +6,15 @@ def test_langchain_tool_translation_and_payment():
     receiver = Wallet("Receiver", balance=0, currency="RLUSD")
 
     tool = A2APayAgentTool(agent_name="Receiver", agent_wallet=receiver)
-    args = A2APayInput(task="translate:Ciao:EN", price=400, payer_wallet=payer)
 
-    result = tool.run(args)
+    tool_input = A2APayInput(
+        task="translate:Ciao:EN",
+        price=400,
+        payer_wallet=payer
+    )
+
+    result = tool.invoke(tool_input)
+
     assert "Translated(Ciao) to EN" in result
     assert payer.balance == 600
     assert receiver.balance == 400
