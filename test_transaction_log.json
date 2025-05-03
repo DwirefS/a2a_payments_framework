@@ -1,0 +1,11 @@
+[
+  {
+    "tx_id": "7ede5a9f-d879-459f-ac33-e6e3441e9db1",
+    "sender": "AgentA",
+    "receiver": "AgentB",
+    "amount": 150,
+    "currency": "USDC",
+    "memo": "test transaction",
+    "timestamp": "2025-05-03T04:43:41.650988"
+  }
+]

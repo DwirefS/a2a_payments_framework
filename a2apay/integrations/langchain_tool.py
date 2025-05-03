@@ -1,43 +1,46 @@
-from langchain.tools import BaseTool
+from langchain.tools import StructuredTool
 from a2apay import Agent, Wallet
-from typing import Type
-from pydantic import BaseModel, Field, ConfigDict, PrivateAttr
+from pydantic import BaseModel, Field, ConfigDict
+from typing import Optional
+
+# -----------------------------
+# Integration Notes:
+# -----------------------------
+# Originally attempted to subclass `BaseTool` with args_schema and Pydantic v2
+# - Failed due to LangChain internal inconsistencies in how .run() and ._run() are called
+# - Unexpected TypeError: 'tool_input' missing even with correct args_schema
+# Resolution:
+# ✅ Use StructuredTool which bypasses _run complexity and is agent-compatible by default
+# ✅ Clean, stable interface with predictable behavior
 
 class A2APayInput(BaseModel):
-    task: str = Field(..., description="The task to perform, e.g. 'translate:Bonjour:EN'")
-    price: int = Field(..., description="Payment amount in smallest currency unit (e.g. cents)")
-    payer_wallet: Wallet = Field(..., description="Wallet of the requesting agent paying for the task")
+    task: str = Field(..., description="A string like 'translate:Bonjour:EN'")
+    price: int = Field(..., description="Amount to pay for task (in smallest units)")
+    payer_wallet: Wallet = Field(..., description="Wallet that will send payment")
 
     model_config = ConfigDict(arbitrary_types_allowed=True)
 
-class A2APayAgentTool(BaseTool):
-    name: str = "a2apay_agent_tool"
-    description: str = "LangChain tool that wraps an A2APay agent with payment enforcement after task execution."
-    args_schema: Type[BaseModel] = A2APayInput
+def a2apay_agent_tool_runner(task: str, price: int, payer_wallet: Wallet, agent_name: str, agent_wallet: Wallet) -> str:
+    try:
+        parts = task.split(":")
+        if parts[0] == "translate":
+            agent = Agent(agent_name, wallet=agent_wallet)
+            structured_task = {
+                "action": "translate",
+                "text": parts[1],
+                "lang": parts[2]
+            }
+            result = agent.handle_request(structured_task)
+            payer_wallet.send(agent.wallet, price, memo="LangChain StructuredTool payment")
+            return result["result"]
+        return "Unsupported task."
+    except Exception as e:
+        return f"Error in structured tool: {e}"
 
-    _agent: Agent = PrivateAttr()
-
-    def __init__(self, agent_name: str, agent_wallet: Wallet):
-        super().__init__()
-        self._agent = Agent(agent_name, wallet=agent_wallet)
-
-    def _run(self, **kwargs) -> str:
-        try:
-            task = kwargs["task"]
-            price = kwargs["price"]
-            payer_wallet = kwargs["payer_wallet"]
-
-            parts = task.split(":")
-            if parts[0] == "translate":
-                structured_task = {
-                    "action": "translate",
-                    "text": parts[1],
-                    "lang": parts[2]
-                }
-                result = self._agent.handle_request(structured_task)
-                payer_wallet.send(self._agent.wallet, price, memo="LangChain tool payment")
-                return result["result"]
-            else:
-                return "Unsupported task."
-        except Exception as e:
-            return f"Error in A2APayAgentTool: {e}"
+def create_a2apay_agent_tool(agent_name: str, agent_wallet: Wallet) -> StructuredTool:
+    return StructuredTool.from_function(
+        name="a2apay_agent_tool",
+        description="Executes a paid task using an A2A agent. Task format: 'translate:Bonjour:EN'",
+        func=lambda task, price, payer_wallet: a2apay_agent_tool_runner(task, price, payer_wallet, agent_name, agent_wallet),
+        args_schema=A2APayInput,
+    )
