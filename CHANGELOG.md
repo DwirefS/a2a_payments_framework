@@ -30,6 +30,4 @@
 - LangChain + AutoGen agent plugins
 - Decentralized audit ledger simulation
 
----
-
-> This release marks the first production-grade framework designed for autonomous agents to transact value securely and autonomously. You’re building the economic substrate of the machine era.
+> This release marks the first production-grade framework designed for autonomous agents to transact value securely and autonomously.

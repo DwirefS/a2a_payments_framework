@@ -1,5 +1,5 @@
-from a2a.agent import Agent
-from a2a.wallet import Wallet
+from a2apay.agent import Agent
+from a2apay.wallet import Wallet
 
 def test_agent_task_and_payment():
     # Set up two agents with wallets

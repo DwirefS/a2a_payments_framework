@@ -2,8 +2,6 @@
 
 Initial public release of a first-of-its-kind agentic finance protocol for autonomous microtransactions.
 
----
-
 ## ✨ New Features
 
 - ✅ Agent-to-Agent (A2A) task request + payment protocol
@@ -15,15 +13,11 @@ Initial public release of a first-of-its-kind agentic finance protocol for auton
 - ✅ GitHub Actions CI workflow with `pytest` + `flake8`
 - ✅ Full test suite for all flows
 
----
-
 ## 🔐 Security Principles
 
 - Payments only occur post-validation
 - Transactions include time, memo, tx ID, sender/receiver
 - Mock wallet validates currency, balance, duplicates
-
----
 
 ## 🔜 Coming Soon
 
@@ -32,11 +26,7 @@ Initial public release of a first-of-its-kind agentic finance protocol for auton
 - 📈 Agent reputation + trust ledger
 - 🔁 Multi-agent contract-style workflows
 
----
-
-Built for a future where machines earn, spend, and contribute.  
+Built for a future where machines earn, spend, and contribute.
 This is **not a demo** — it's the foundation of the machine economy.
 
 🎓 Ideal for AI agents, agentic research labs, fintech engineers, and protocol builders.
-
-💬 Contact [@DwirefS](https://github.com/DwirefS) for collaboration or partnerships.

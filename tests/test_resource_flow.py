@@ -1,5 +1,5 @@
-from a2a.wallet import Wallet
-from a2a.resource import ResourceProvider
+from a2apay.wallet import Wallet
+from a2apay.resource import ResourceProvider
 
 def test_resource_access_payment():
     alice_wallet = Wallet("Alice", balance=1000, currency="RLUSD")

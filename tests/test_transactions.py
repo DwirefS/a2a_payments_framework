@@ -1,5 +1,5 @@
-from a2a.wallet import Wallet
-from a2a.transaction import TransactionLog
+from a2apay.wallet import Wallet
+from a2apay.transaction import TransactionLog
 
 def test_transaction_log_record():
     log = TransactionLog(log_file="test_transaction_log.json")

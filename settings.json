@@ -1,0 +1,7 @@
+{
+    "some.existing.setting": true,
+    "python.analysis.diagnosticSeverityOverrides": {
+      "reportMissingModuleSource": "none"
+    }
+  }
+  

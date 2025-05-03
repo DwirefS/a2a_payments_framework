@@ -1,4 +1,4 @@
-from a2a.wallet import Wallet
+from a2apay.wallet import Wallet
 
 def test_wallet_send_receive():
     a = Wallet("A", 1000, currency="RLUSD")

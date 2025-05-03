@@ -1,4 +1,4 @@
-from a2a import Agent, Wallet, ResourceProvider
+from a2apay import Agent, Wallet, ResourceProvider
 
 alice = Agent("Alice", Wallet("Alice", balance=5000, currency="RLUSD"))
 bob = Agent("Bob", Wallet("Bob", balance=0, currency="RLUSD"))
