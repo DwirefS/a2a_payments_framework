@@ -8,6 +8,49 @@
 
 ## 🚀 Purpose & Philosophy
 
+### 🤝 Why Agent-to-Agent Payments Using Crypto?
+As AI agents scale exponentially in number — soon outnumbering humans — they will need to operate autonomously across various ecosystems. Crypto-based payments enable:
+- ⚡ Real-time, machine-speed execution
+- 🧾 Immutable, tamper-proof logs
+- 💸 Microtransactions at fractional costs
+- 🔍 Granular cost management at scale
+- 🔐 Secure transfers using API-based stablecoins (e.g., RLUSD, USDC)
+
+These capabilities unlock full autonomy: any agent can pay or get paid based on its usefulness, anywhere in the network — even outside its owner's subscription.
+
+The A2A Payments Framework ensures that **as the agent-verse grows**, there is a secure and scalable way for these agents to collaborate economically.
+
+> "Let the machinekind get paid for its work. Autonomy isn't complete until value can flow."
+
+
+As the adoption of AI agents continues to accelerate, a more organic and autonomous digital ecosystem is emerging. In this new paradigm, agents will often need to collaborate across boundaries — requesting data, services, or compute from other agents or providers that are **outside their originating user's paid subscription environment**.
+
+This introduces a real-world challenge: **How can an agent under User A's account interact with and compensate an agent or DSP that isn't part of User A's billing model?**
+
+The A2A Payments Framework addresses this challenge by offering a secure, modular way for agents to transact using standardized messaging and token-based microtransactions. With this framework, any agent — regardless of its host or subscription tier — can interact with any other agent or resource provider, whether internal or external.
+
+### 🔍 Market Gap
+Current agent frameworks (LangChain, AutoGen, DSP prototypes) focus on **communication and orchestration**, but none provide a **built-in payment or value-exchange layer**. This leaves a gap in real-world deployment for commercial or cross-tenant use cases.
+
+The A2A Payments Framework fills that gap by:
+- Providing wallet and payment primitives
+- Enabling agent-to-agent billing
+- Logging and validating transactions
+- Allowing integrations with stablecoin platforms (RLUSD, USDC)
+
+This sets the foundation for **economic trust and autonomy** in machine-to-machine interactions.
+
+
+**What is a DSP?**
+A *Decentralized Service Provider (DSP)* is a node, agent, or infrastructure component offering services (APIs, datasets, model inferences) in exchange for payment. DSPs live outside a centralized billing model and are paid per use — ideal for agent-based transactions across ecosystems.
+
+The A2A Payments Framework enables agents to programmatically access and pay DSPs securely, in real time. Imagine:
+- An agent using a decentralized model hosted by a GPU DSP
+- A learning agent fetching new training data from a knowledge DSP
+- A workflow bot outsourcing a task to a translation DSP
+
+This framework allows these interactions to happen **autonomously and fairly.**
+
 **A2A Payments Framework** is designed to be the first plug-and-play microtransaction protocol for autonomous AI agents. It enables machine-to-machine payments between:
 
 - 🤖 Autonomous agents (A2A)
@@ -80,6 +123,8 @@ pytest tests/
 ---
 
 ## 🌐 Roadmap
+
+- [ ] DSP integration layer and marketplace interface
 
 - [ ] Real RLUSD integration via API
 - [ ] Azure Key Vault + Blob logging
